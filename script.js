@@ -1,31 +1,45 @@
-let sound = event => {
-    playSound(event.code.toLowerCase())
+let sound = e => {
+    let element = e.code.toLowerCase()
+    playSound(element)
 }
 
-let valueButton = element => {
+let valueButton = () => {
     let song = document.getElementById('input').value
 
-    if(song !== '') {
+    if (song !== '') {
         let songArray = song.split('')
         playComposition(songArray)
     }
 }
 
-document.body.addEventListener('keyup', sound)
+let element =  element => {
+    element.addEventListener("click", function (e) {
+        let keyElement = 'key' + this.innerHTML.toLowerCase()
+        playSound(keyElement)
+    })
+}
 
-document.querySelector('.composer button')
+document.body
+    .addEventListener('keyup', sound)
+
+document
+    .querySelector('.composer button')
     .addEventListener('click', valueButton)
+
+document
+    .querySelectorAll('.key')
+    .forEach(element)
 
 function playSound(sound) {
     let audioElement = document.getElementById(`s_${sound}`)
     let keyElement = document.querySelector(`div[data-key="${sound}"]`)
-    
-    if(audioElement) {
+
+    if (audioElement) {
         audioElement.currentTime = 0
         audioElement.play()
     }
 
-    if(keyElement) {
+    if (keyElement) {
         keyElement.classList.add('active')
 
         setTimeout(() => {
@@ -40,6 +54,6 @@ function playComposition(songArray) {
         setTimeout(() => {
             playSound(`key${element}`)
         }, wait)
-    wait += 250
+        wait += 250
     })
 }

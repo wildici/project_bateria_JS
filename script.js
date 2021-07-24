@@ -12,9 +12,9 @@ let valueButton = () => {
     }
 }
 
-let element =  element => {
-    element.addEventListener("click", function (e) {
-        let keyElement = 'key' + this.innerHTML.toLowerCase()
+let itemClick = item => {
+    item.addEventListener("click", function (element) {
+        let keyElement = element.target.getAttribute('data-key')
         playSound(keyElement)
     })
 }
@@ -28,7 +28,7 @@ document
 
 document
     .querySelectorAll('.key')
-    .forEach(element)
+    .forEach(itemClick)
 
 function playSound(sound) {
     let audioElement = document.getElementById(`s_${sound}`)
